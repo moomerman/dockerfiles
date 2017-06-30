@@ -36,7 +36,7 @@ RUN mix local.hex --force && mix local.rebar --force
 
 ## NODE
 
-ENV NODE_VERSION=8.1.2 \
+ENV NODE_VERSION=8.1.3 \
     LANG=C.UTF-8 \
     NPM_CONFIG_LOGLEVEL=info
 
