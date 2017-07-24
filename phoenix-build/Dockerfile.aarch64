@@ -29,20 +29,16 @@ RUN set -xe \
 	&& curl -4fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
 	&& echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - \
 	&& runtimeDeps=' \
-		libodbc1 \
 		libssl1.0.2 \
 		libsctp1 \
-		libwxgtk3.0-0v5 \
 	' \
 	&& buildDeps=' \
 		autoconf \
 		gcc \
 		make \
 		libncurses-dev \
-		unixodbc-dev \
 		libssl-dev \
 		libsctp-dev \
-		libwxgtk3.0-dev \
 	' \
 	&& apt-get install -y --no-install-recommends $runtimeDeps \
 	&& apt-get install -y --no-install-recommends $buildDeps \
@@ -55,7 +51,11 @@ RUN set -xe \
 	&& ( cd $ERL_TOP \
 	  && ./otp_build autoconf \
 	  && ./configure \
-		--enable-dirty-schedulers \
+		--without-wx --without-debugger --without-observer --without-odbc --enable-dirty-schedulers \
+                --without-javac --without-jinterface --without-cosEvent --without-cosEventDomain --without-cosFileTransfer --without-cosNotification \
+                --without-cosProperty --without-cosTime --without-cosTransactions --without-dialyzer --without-et --without-gs --without-ic --without-megaco --without-orber \
+                --without-percept --without-typer \
+                --enable-threads --enable-hipe \
 	  && make -j$(nproc) \
 	  && make install ) \
 	&& find /usr/local -name examples | xargs rm -rf \
