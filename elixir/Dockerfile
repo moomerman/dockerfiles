@@ -13,6 +13,11 @@ RUN set -xe \
 	&& cd /usr/local/src/elixir \
 	&& make install clean
 
+ARG MIX_HOME=/.mix
+ENV MIX_HOME=$MIX_HOME
+ARG MIX_ENV=dev
+ENV MIX_ENV=$MIX_ENV
+
 RUN mix local.rebar --force
 RUN mix local.hex --force
 
