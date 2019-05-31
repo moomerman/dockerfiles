@@ -13,4 +13,7 @@ RUN set -xe \
 	&& cd /usr/local/src/elixir \
 	&& make install clean
 
+RUN mix local.rebar --force
+RUN mix local.hex --force
+
 CMD ["iex"]
